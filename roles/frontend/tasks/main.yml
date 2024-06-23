@@ -24,3 +24,9 @@
   copy: 
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Restart Nginx
+  systemd: 
+    name: nginx
+    state: restarted
+    enabled: yes 
