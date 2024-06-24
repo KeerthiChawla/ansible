@@ -28,4 +28,5 @@
 - name: Restart Nginx
   systemd: 
     name: nginx
+    state: restartedg
     enabled: yes 
