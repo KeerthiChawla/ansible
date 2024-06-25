@@ -1,7 +1,7 @@
 
 - name: Install Redis Repo 
   yum: 
-    name: https://rpms.remirepo.net/enterprise/remi-release-7.9-3.el8.rpm
+    name: https://rpms.remirepo.net/enterprise/remi-release-8.9-3.el8.rpm
     state: present
 
 - name : Install Redis 
