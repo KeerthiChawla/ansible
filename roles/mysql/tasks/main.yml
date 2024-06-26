@@ -13,7 +13,7 @@
   yum: 
     name: 
       - mysql-community-server
-      - MySQL-python
+      #- MySQL-python
     state: present
 
 - name: Start MySQL Service
