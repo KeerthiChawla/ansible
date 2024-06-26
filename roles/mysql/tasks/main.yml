@@ -11,9 +11,7 @@
 
 - name: Install MySQL Server 
   yum: 
-    name: 
-      - mysql-community-server
-      - MySQL-python
+    name: mysql-community-server
     state: present
 
 - name: Start MySQL Service
