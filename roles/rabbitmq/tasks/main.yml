@@ -1,3 +1,7 @@
+- rpm_key:
+    state: present
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi2018
+
 
 - name: Install ErLang 
   yum: 
