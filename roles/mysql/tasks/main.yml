@@ -26,10 +26,6 @@
   ignore_errors: true 
  
 
-- name: Print
-  debug: 
-    msg: "{{out}}" 
-
 - name: Grab default password
   shell: grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}'
   register: default_pass
@@ -46,24 +42,14 @@
   when: out.rc != 0
 
 
+- name: Check Password Validate plugin
+  shell: echo 'show plugins;' | mysql -u root -p"RoboShop@1" 2>/dev/null | grep -i validate_password
+  register: val_out
+  ignore_errors: true 
 
-
-
-
-
-
-
-
-
-
-# - name: Check Password Validate plugin
-#   shell: echo 'show plugins;' | mysql -u root -p"RoboShop@1" 2>/dev/null | grep -i validate_password
-#   register: val_out
-#   ignore_errors: true 2
-
-# - name: Uninstall Validate plugin
-#   shell: echo "uninstall plugin validate_password;" >/tmp/pass.sql ; mysql -u root -p"RoboShop@1" </tmp/pass.sql 
-#   when: val_out.rc == 0 
+- name: Uninstall Validate plugin
+  shell: echo "uninstall plugin validate_password;" >/tmp/pass.sql ; mysql -u root -p"RoboShop@1" </tmp/pass.sql 
+  when: val_out.rc == 0 
 
 # - name: Download MySQL Schema
 #   ansible.builtin.unarchive: 
