@@ -11,8 +11,7 @@
 
 - name: Install MySQL Server 
   yum: 
-    name: 
-      - mysql-community-server
+    name: mysql-community-server
       #- MySQL-python
     state: present
 
@@ -22,29 +21,29 @@
     state: started 
     enabled: yes 
 
-- name: Check the Password Reset Status
-  shell: echo 'show databases' | mysql -uroot -pRoboShop@1
-  register: out 
-  #ignore_errors: true
+# - name: Check the Password Reset Status
+#   shell: echo 'show databases' | mysql -uroot -pRoboShop@1
+#   register: out 
+#   #ignore_errors: true
 
-- name: Print
-  debug: 
-    msg: "{{out}}"
+# - name: Print
+#   debug: 
+#     msg: "{{out}}"
 
 
-- name: Grab default password
-  shell: grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}'
-  register: default_pass
-  #when: out.rc != 0
+# - name: Grab default password
+#   shell: grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}'
+#   register: default_pass
+#   #when: out.rc != 0
 
-- name: Reset SQL file
-  copy: 
-    src: reset.sql
-    dest: /tmp/reset.sql
-  #when: out.rc != 0
+# - name: Reset SQL file
+#   copy: 
+#     src: reset.sql
+#     dest: /tmp/reset.sql
+#   #when: out.rc != 0
 
-- name: Reset MySQL Password 
-  shell: mysql --connect-expired-password -u root -p"${{default_pass.stdout}}" </tmp/reset.sql
+# - name: Reset MySQL Password 
+#   shell: mysql --connect-expired-password -u root -p"${{default_pass.stdout}}" </tmp/reset.sql
   #when: out.rc != 0
 
 # - name: Check Password Validate plugin
