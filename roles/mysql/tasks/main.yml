@@ -7,7 +7,7 @@
 - name: Remove mariadb-libs Package
   yum:
     name: mariadb-libs
-    state: absent
+    state: absent6
 
 - name: Install MySQL Server 
   yum: 
@@ -19,6 +19,14 @@
     name: mysqld
     state: started 
     enabled: yes 
+
+- name: Check the Password Reset Status
+  shell: echo 'show databases' | mysql -uroot -pRoboShop@1
+  register: out 
+
+- name: Print
+  debug: 
+    msg: "{{out}}" 
 
 - name: Grab default password
   shell: grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}'
@@ -33,14 +41,9 @@
   shell: mysql --connect-expired-password -u root -p"${{default_pass.stdout}}" </tmp/reset.sql
 
 
-# - name: Check the Password Reset Status
-#   shell: echo 'show databases' | mysql -uroot -pRoboShop@1
-#   register: out 
-#   ignore_errors: true
 
-# - name: Print
-#   debug: 
-#     msg: "{{out}}"
+
+
 
 
 
