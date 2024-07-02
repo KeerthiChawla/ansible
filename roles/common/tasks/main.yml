@@ -1,7 +1,8 @@
-- name: Copy Set-Hostname Script
-  copy:
-    src: set-hostname
-    dest: /tmp
+# - name: Copy Set-Hostname Script
+#   copy:
+#     src: set-hostname
+#     dest: /tmp
 
 - name: Set Hostname
-  shell: bash /tmp/set-hostname {{COMPONENT}}
+  shell: set-hostname {{COMPONENT}}
+  #shell: bash /tmp/set-hostname {{COMPONENT}}
