@@ -1,0 +1,8 @@
+- name: Demo on Vault
+  hosts: localhost
+  vars:
+    SECRET: a
+  tasks:
+    - name: print secret 
+      debug:
+        msg: SECRET = {{SECRET}}
