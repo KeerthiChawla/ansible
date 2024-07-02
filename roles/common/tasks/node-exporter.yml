@@ -1,12 +1,24 @@
 
 - name: Download Node Exporter 
   unarchive:
-    src: "https://github.com/prometheus/node_exporter/releases/download/v1.8.1/node_exporter-1.8.1.linux-amd64.tar.gz"
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{NE_VERSION}}/node_exporter-{{NE_VERSION}}.linux-amd64.tar.gz"
     dest: /opt
     remote_src: yes
 
 - name: Create link of prometheus with standard directory name
   ansible.builtin.file:
-    src: node_exporter-1.8.1.linux-amd64      
+    src: node_exporter-{{NE_VERSION}}.linux-amd64      
     dest: /opt/node_exporter
     state: link
+
+- name: Copy SystemD file 
+  copy: 
+    src: node_exporter.service 
+    dest: /etc/systemd/system/node_exporter.service
+
+- name: Start Node Exporter
+  systemd: 
+    name: node_exporter 
+    state: restarted 
+    enabled: yes
+    daemon-reload: yes
