@@ -26,8 +26,14 @@
     dest: /etc/nginx/default.d/roboshop.conf
   notify: Restart Nginx 
 
-- name: Restart Nginx
+- name: Start Nginx
   systemd: 
     name: nginx
     state: started
     enabled: yes 
+
+- name: Include Node_exporter
+  include_role:
+    name: common
+    tasks_from: node-exporter  
+
