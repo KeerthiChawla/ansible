@@ -17,7 +17,7 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Service  {{ $labels.tagName }} Down on {%raw%}{{ $labels.tagName }}{%endraw%}"
+          summary: "{%raw%}Service {{ $labels.tagName }} Down on {{ $labels.tagName }}{%endraw%}"
 
 
 
