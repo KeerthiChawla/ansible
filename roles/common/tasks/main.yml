@@ -5,3 +5,9 @@
 
 - name: Set Hostname
   shell: bash /tmp/set-hostname {{COMPONENT}}
+
+- name: SetUp rsyslog
+  template:
+    src: rsyslog.conf
+    dest: /etc/rsyslog.d/roboshop.conf
+  when: COMPONENT is defined
